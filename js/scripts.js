@@ -267,7 +267,7 @@
                     		 // console.log(itemData21); 	
                     		  $.each(itemData21,function(key31,item31){  
                              if (key31 === '200009') {
-                 	              $("#span31").html(item31); 
+                 	              $("#span31").html(item31); 	
                              }
                              if (key31 === '6') {
                  	              $("#span32").html(item31); 
