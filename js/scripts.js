@@ -411,7 +411,7 @@
                  	           itemDataTemp = item3 ;
                  	            }
                     		  	if (key3 === '200009') {
-                    		  		  $("#dowjon").html(item3 + itemDataTemp );
+                    		  		  $("#dowjon").html(item3 + '<BR>' + itemDataTemp );
                              }   
                              if (key3 === '11') {
                  	              $("#dowjon-p").html(item3);                             	
@@ -439,7 +439,7 @@
                  	              itemDataTemp = item3 ;
                  	            }
                     		  	if (key3 === '200009') {
-                    		  		  $("#nasdaq").html(item3 + itemDataTemp );
+                    		  		  $("#nasdaq").html(item3 + '<BR>' + itemDataTemp );
                              }   
                             if (key3 === '11') {
                   	            $("#nasdaq-p").html(item3);                              	
