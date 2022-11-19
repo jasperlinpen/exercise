@@ -189,7 +189,7 @@
                  });
                 });     
                      
-              //  2nd stock section   
+              //  2nd stock section   rrr
                  $.getJSON('https://ws.api.cnyes.com/ws/api/v1/charting/history?resolution=1&symbol=TWS:2324:STOCK&quote=1',function(data){
                     // console.log('success');
                   $.each(data,function(key11,item11){
