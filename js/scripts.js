@@ -328,16 +328,16 @@
                     var itemData11 = item11; 	          
                     $.each(itemData11,function(key21,item21){
                       if (key21  === 'o' ){
-                    	   $("#wi-o").html('開:' + item21); 
+                    	   $("#wi-o").html(item21 + 'O' ); 
                       	}
                     	if (key21  === 'h' ){
-                    	   $("#wi-h").html('高:' +item21); 
+                    	   $("#wi-h").html(item21 + 'H' ); 
                     	 	}
                     	if (key21  === 'l' ){
-                    	   $("#wi-l").html('低:' + item21); 
+                    	   $("#wi-l").html(item21 + 'L'); 
                     	 	}
                     	if (key21  === 'c' ){
-                    	   $("#wi-c").html('收:' + item21);                     	                   	 	
+                    	   $("#wi-c").html(item21 + 'C' );                     	                   	 	
                     	}
                     	
                     	if (key21  === 'quote' ) {
