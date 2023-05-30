@@ -350,8 +350,8 @@
                              	        $("#tsmc3").addClass("flatPrice"); 		
                              	  	 }
                              	  	 else {
-                             	  	 	 $("#tsmc2").addClass("fellPrice"); 
-                             	       $("#tsmc3").addClass("fellPrice"); 	
+                             	  	   $("#tsmc2").addClass("wi-fellPrice"); 
+                             	       $("#tsmc3").addClass("wi-fellPrice"); 	
                              	  	 }
                              	  }
                              	  $("#tsmc3").html(item31); 
