@@ -1,14 +1,18 @@
-﻿          const element1 = document.getElementById("myBar1");
+          const element1 = document.getElementById("myBar1");
           let width = 0; 
           window.addEventListener('load',function(){
           	if (firstVisit === true) {
-          		 firstVisit = false;
+          		// firstVisit = false;
+				 getDATA();
+                 getWDATA();
           		 element1.style.width = '0%'; 
                document.getElementById("s01").addEventListener("change", myFunction);         		
-          	}  else {
-          		 getDATA();
-          		 getWDATA();
-          		 id = setInterval(getDATA, refSec);
+          	}  else {	
+               getDATA();
+               getWDATA();
+			   /*
+               id = setInterval(getDATA, refSec);
+			   */
           	}
 
           });
@@ -24,7 +28,7 @@
                       	      refSec = 3000 ;
                               } else {
                               firstVisit = false;
-                              url='index1.htm' ;
+                            //  url='index1.htm' ;
                       	      }
                            break;
                       case "2":
@@ -32,7 +36,7 @@
                       	      refSec = 5000 ;
                               } else {
                               firstVisit = false;
-                              url='index2.htm' ;
+                            //  url='index2.htm' ;
                       	      }
                            break;
                       case "3": 
@@ -40,7 +44,7 @@
                       	      refSec = 10000 ;
                               } else {
                               firstVisit = false;
-                              url='index3.htm' ;
+                            //  url='index3.htm' ;
                       	      }
                            break;
                       case "4": 
@@ -48,7 +52,7 @@
                       	      refSec = 20000 ;
                               } else {
                               firstVisit = false;
-                              url='index4.htm' ;
+                            //  url='index4.htm' ;
                       	      }
                            break;
                       case "5": 
@@ -56,7 +60,7 @@
                       	      refSec = 30000 ;
                               } else {
                               firstVisit = false;
-                              url='index5.htm' ;
+                            //  url='index5.htm' ;
                       	      }
                            break;
                       case "6": 
@@ -64,7 +68,7 @@
                       	      refSec = 60000 ;
                               } else {
                               firstVisit = false;	
-                              url='index6.htm' ;
+                            //  url='index6.htm' ;
                       	      }
                            break;
                       case "7": 
@@ -72,7 +76,7 @@
                       	      refSec = 600000 ;
                               } else {
                               firstVisit = false;
-                              url='index7.htm' ;
+                            //  url='index7.htm' ;
                       	      }
                            break; 
                       case "8": 
@@ -80,7 +84,7 @@
                       	      refSec = 900000 ;
                               } else {
                               firstVisit = false;
-                              url='index8.htm' ;
+                            //  url='index8.htm' ;
                       	      }
                            break;
                       case "9": 
@@ -88,7 +92,7 @@
                       	      refSec = 1200000 ;
                               } else {
                               firstVisit = false;
-                              url='index9.htm' ;
+                            //  url='index9.htm' ;
                       	      }
                            break;
                       case "10": 
@@ -96,7 +100,7 @@
                       	      refSec = 1800000 ;
                               } else {
                               firstVisit = false;
-                              url='index10.htm' ;
+                            //  url='index10.htm' ;
                       	      }
                            break;                                     
                       default:
@@ -107,25 +111,33 @@
           	   if ( firstVisit === true ) {
           	   	   console.log(firstVisit);
           	   	   id = setInterval(getDATA,refSec);
+				   if (id > 1) {
+					   clearInterval(id-1) ;
+					   width = 0; 
+				   }
           	   } else {
           	   	   console.log(firstVisit);
-          	   	   location.replace(url) ;
+          	   	 //  location.replace(url) ;
           	   }
             }
-                        
+                     
           function getDATA() {
            	   var d = new Date();
-               $('#date1').html((d.getMonth()+1) + '/' + d.getDate() + '　' + d.getHours() + ':'  + d.getMinutes());
+               $('#date1').html((d.getMonth()+1) + '/' + d.getDate() + '&nbsp;' + d.getHours() + ':'  + d.getMinutes());
                if (width === 100 ) {
-                   clearInterval(id);
+                 //  clearInterval(id);
+				   width = 0; 
                    } else {
                     width += 7 ;
                    if (width > 95) width = width-95 ; 
                       element1.style.width = width + '%'; 
                    } 
+				   
+				/*  
                 if (firstVisit === false) {
                    document.getElementById("s01").addEventListener("change", myFunction);   
-                }              	
+                }  
+                */             	
                 $.getJSON('https://ws.api.cnyes.com/ws/api/v1/charting/history?resolution=1&symbol=TWS:2449:STOCK&quote=1',function(data){
                     // console.log('success');
                   $.each(data,function(key1,item1){
@@ -212,7 +224,6 @@
                              	      {
                              	       	$("#span22").addClass("risePrice"); 
                              	       	$("#span23").addClass("risePrice"); 
-                             	       // $("#span13").html("???" +???item3); 	
                              	      } 
                              	  else {
                              	  	 if (item31 === 0){ 
@@ -342,7 +353,6 @@
                              	      {
                              	       	$("#tsmc2").addClass("risePrice"); 
                              	       	$("#tsmc3").addClass("risePrice"); 
-                             	       // $("#span13").html("???" +???item3); 	
                              	      } 
                              	  else {
                              	  	 if (item31 === 0){ 
