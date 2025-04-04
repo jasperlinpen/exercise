@@ -1,4 +1,4 @@
-const stockId_list=['2330','2002','1102','2454','2027','1101'] ; // 台積電(2330), 東元(1504) 鴻海(2317) , 亞泥(1102) , 聯發科(2454), 大成鋼(2027) , 京元電(2449)  聯強(2347) , 台泥(1101) , 大同(2371) , 中鋼(2002)
+stockId_listconst stockId_list=['2330','1504','1102','2454','2027','2449'] ; // 台積電, 東元 鴻海(2317) , 亞泥 , 聯發科, 大成鋼 , 京元電  聯強(2347) , 台泥(1101) , 大同(2371) , 中鋼(2002)
 const fetchUrl_str1="https://ws.api.cnyes.com/ws/api/v1/charting/history?resolution=1&symbol=TWS:" , fetchUrl_str2=":STOCK&quote=1"
 const element1 = document.getElementById("myBar1");
 		  const mask_item1 = document.getElementById("hiddenElement1");
@@ -7,7 +7,7 @@ const element1 = document.getElementById("myBar1");
 		  let show_YearRpt="" , show_SeasonRpt="" , show_MonthRpt="" , tr_line="" , itemYear_stockname="" ; 
         let width = 0 , intervalIds = [] , itemYear_arry1 = [] , itemYear_arry2 = [] , itemYear_arry3 = []  ;
 		  let str_1="https://ws.api.cnyes.com/ws/api/v1/charting/history?resolution=1&symbol=TWS:", 
-			  str_2=stockId_list[5], 
+			  str_2="2449", 
 			  str_3=":STOCK&quote=1" ,
 			  ajaxURL= str_1 + str_2 + str_3 ,
 			  s01_val="0" ; 				  
@@ -21,12 +21,12 @@ const element1 = document.getElementById("myBar1");
             else 
 			{ 
 		    }
-      getDATA();
-      getWDATA();
-      element1.style.width = '0%';  
-      document.getElementById("s01").addEventListener("change", refreshTime); 
-      document.getElementById("s02").addEventListener("change", optionSel); 			  
-      });
+		   getDATA();
+         getWDATA();
+          element1.style.width = '0%';  
+          document.getElementById("s01").addEventListener("change", refreshTime); 
+          document.getElementById("s02").addEventListener("change", optionSel); 			  
+          });
 		                              
           function refreshTime() {
              switch ( $(this).val()) {
@@ -87,7 +87,7 @@ const element1 = document.getElementById("myBar1");
 
             }
 			
-      function optionSel() {
+          function optionSel() {
 			 s01_val=document.getElementById("s01").value ;
 			 switch ( s01_val ) {
                       case "0": 
@@ -483,7 +483,7 @@ const element1 = document.getElementById("myBar1");
             });
            });    
          //  Ending 5th stock section                                                    
-          //  Option selected index  section
+            //  Option selected index  section
             if (str_2 !="0") {
               ajaxURL=str_1 + str_2 + str_3 ;	 
          $.getJSON(ajaxURL,function(data){
@@ -559,7 +559,7 @@ const element1 = document.getElementById("myBar1");
           var itemData11 = item11; 	          
           $.each(itemData11,function(key21,item21){
             if (key21  === 'c' ){
-                $("#wi-c").html(item21);                     	                   	 	
+                $("#wi-c").html(item21 + 'C' );                     	                   	 	
             }           
             if (key21  === 'quote' ) {
                 var itemData21 = item21;
@@ -605,79 +605,136 @@ const element1 = document.getElementById("myBar1");
     //  Ending Weighed index section    
        };  
 
-    function getWDATA() {            	
-        $.getJSON('https://ws.api.cnyes.com/ws/api/v3/universal/quote?type=IDXMAJOR&column=B&page=2&limit=10',function(data){
-            // console.log('success');
-          $.each(data,function(key1,item1){
-             if (key1 === 'data') {
-             //  $('ul').append('<li>'+item1+'</li>');
-            var itemData = item1; 	          
-            $.each(itemData,function(key2,item2){
-              if (key2  === 'items' ) {
-                  var itemData2 = item2;
-                  var itemDataTemp ;
-                //  Dowjon - starting
-                  $.each(itemData2[3],function(key3,item3){
-                    if (key3 === '6') {
-                      itemDataTemp = item3 ;
-                       }
-                if (key3 === '200009') {
-                 //   $("#dowjon").html(item3 + '<BR>' + itemDataTemp );
-                     }   
+       function getWDATA() {            	
+         $.getJSON('https://ws.api.cnyes.com/ws/api/v3/universal/quote?type=IDXMAJOR&column=B&page=2&limit=10',function(data){
+             // console.log('success');
+           $.each(data,function(key1,item1){
+              if (key1 === 'data') {
+               //  $('ul').append('<li>'+item1+'</li>');
+             var itemData = item1; 	          
+             $.each(itemData,function(key2,item2){
+                if (key2  === 'items' ) {
+                     var itemData2 = item2;
+                     var itemDataTemp ;
+                   //  Dowjon - starting
+                     $.each(itemData2[3],function(key3,item3){
+                     if (key3 === '6') {
+                        itemDataTemp = item3 ;
+                         }
+                   if (key3 === '200009') {
+                        $("#dowjon").html(item3 + '<BR>' + itemDataTemp );
+                      }   
+                      if (key3 === '11') {
+                           $("#dowjon-p").html(item3);                             	
+                           if (item3> 0) 
+                               {
+                                   $("#dowjon-p").addClass("risePrice"); 
+                                   $("#dowjon-p").addClass("risePrice"); 
+                               } 
+                           else {
+                               if (item3 === 0){ 
+                                   $("#dowjon-p").addClass("flatPrice"); 
+                                $("#dowjon-p").addClass("flatPrice"); 		
+                               }
+                               else {
+                                   $("#dowjon-p").addClass("fellPrice"); 
+                                $("#dowjon-p").addClass("fellPrice"); 	
+                               }
+                           }
+                      } 
+                 }) ; 
+                   //  Dowjon - Ending  
+                   //  Nasdaq - starting
+                     $.each(itemData2[5],function(key3,item3){
+                        if (key3 === '6') {
+                           itemDataTemp = item3 ;
+                         }
+                        if (key3 === '200009') {
+                             $("#nasdaq").html(item3 + '<BR>' + itemDataTemp );
+                      }   
                      if (key3 === '11') {
-                         $("#dowjon-p").html(item3);                             	
-                         if (item3> 0) 
-                             {
-                                $("#dowjon-p").addClass("risePrice"); 
-                                $("#dowjon-p").addClass("risePrice"); 
-                             } 
-                         else {
-                            if (item3 === 0){ 
-                               $("#dowjon-p").addClass("flatPrice"); 
-                              $("#dowjon-p").addClass("flatPrice"); 		
-                            }
-                            else {
-                               $("#dowjon-p").addClass("fellPrice"); 
-                              $("#dowjon-p").addClass("fellPrice"); 	
-                            }
+                          $("#nasdaq-p").html(item3);                              	
+                           if (item3> 0) 
+                               {
+                                   $("#nasdaq-p").addClass("risePrice"); 
+                                   $("#nasdaq-p").addClass("risePrice"); 
+                               } 
+                           else {
+                               if (item3 === 0){ 
+                                   $("#nasdaq-p").addClass("flatPrice"); 
+                                $("#nasdaq-p").addClass("flatPrice"); 		
+                               }
+                               else {
+                                   $("#nasdaq-p").addClass("fellPrice"); 
+                                $("#nasdaq-p").addClass("fellPrice"); 	
+                               }
+                           }
+                      } 
+                 }) ; 
+                   //  Nasdaq - Ending  
+                   //  Sp500 - starting
+                     $.each(itemData2[5],function(key3,item3){
+                         if (key3 === '6') {
+                           itemDataTemp = item3 ;
                          }
-                     } 
-                }) ; 
-                //  Dowjon - Ending  
-                //  Nasdaq - starting
-                  $.each(itemData2[5],function(key3,item3){
-                    if (key3 === '6') {
-                         itemDataTemp = item3 ;
-                       }
-                    if (key3 === '200009') {
-                    //  $("#nasdaq").html(item3 + '<BR>' + itemDataTemp );
-                     }   
-                    if (key3 === '11') {
-                        $("#nasdaq-p").html(item3);                              	
-                         if (item3> 0) 
-                             {
-                                $("#nasdaq-p").addClass("risePrice"); 
-                                $("#nasdaq-p").addClass("risePrice"); 
-                             } 
-                         else {
-                            if (item3 === 0){ 
-                               $("#nasdaq-p").addClass("flatPrice"); 
-                              $("#nasdaq-p").addClass("flatPrice"); 		
-                            }
-                            else {
-                               $("#nasdaq-p").addClass("fellPrice"); 
-                              $("#nasdaq-p").addClass("fellPrice"); 	
-                            }
+                         if (key3 === '200009') {
+                             $("#sp500").html(item3 + itemDataTemp );
+                      } 
+                      if (key3 === '11') {
+                          $("#sp500-p").html(item3);                              	
+                           if (item3> 0) 
+                               {
+                                   $("#sp500-p").addClass("risePrice"); 
+                                   $("#sp500-p").addClass("risePrice"); 
+                               } 
+                           else {
+                               if (item3 === 0){ 
+                                   $("#sp500-p").addClass("flatPrice"); 
+                                $("#sp500-p").addClass("flatPrice"); 		
+                               }
+                               else {
+                                   $("#sp500-p").addClass("fellPrice"); 
+                                $("#sp500-p").addClass("fellPrice"); 	
+                               }
+                           }
+                      } 
+                 }) ; 
+                   //  Sp500 - Ending  
+                   //  pdpsc - starting
+                     $.each(itemData2[7],function(key3,item3){  
+                         if (key3 === '6') {
+                           itemDataTemp = item3 ;
                          }
-                     } 
-                }) ; 
-                //  Nasdaq - Ending               		              		
-              }
-             });               
-          }
-         });
-        }); 
-    };      
+                         if (key3 === '200009') {
+                             $("#pdpsc").html(item3 + itemDataTemp );
+                      } 
+                      if (key3 === '11') {
+                          $("#pdpsc-p").html(item3);                              	
+                           if (item3> 0) 
+                               {
+                                   $("#pdpsc-p").addClass("risePrice"); 
+                                   $("#pdpsc-p").addClass("risePrice"); 
+                               } 
+                           else {
+                               if (item3 === 0){ 
+                                   $("#pdpsc-p").addClass("flatPrice"); 
+                                $("#pdpsc-p").addClass("flatPrice"); 		
+                               }
+                               else {
+                                   $("#pdpsc-p").addClass("fellPrice"); 
+                                $("#pdpsc-p").addClass("fellPrice"); 	
+                               }
+                           }
+                      } 
+                 }) ; 
+                   //  pdpsc - Ending                 		                    		                         		              		
+                }
+              });               
+           }
+          });
+         }); 
+        }; 
+
 
   // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Begin
    function step11(stockNo) {

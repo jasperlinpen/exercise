@@ -1,13 +1,13 @@
-const stockId_list=['2330','2002','1102','2454','2027','1101'] ; // 台積電(2330), 東元(1504) 鴻海(2317) , 亞泥(1102) , 聯發科(2454), 大成鋼(2027) , 京元電(2449)  聯強(2347) , 台泥(1101) , 大同(2371) , 中鋼(2002)
+const stockId_list=['2330','2317','1102','2454','2027','2449'] ; // 台積電, 鴻海 , 亞泥 , 聯發科, 大成鋼 , 京元電
 const fetchUrl_str1="https://ws.api.cnyes.com/ws/api/v1/charting/history?resolution=1&symbol=TWS:" , fetchUrl_str2=":STOCK&quote=1"
 const element1 = document.getElementById("myBar1");
 		  const mask_item1 = document.getElementById("hiddenElement1");
 		  const mask_item2 = document.getElementById("hiddenElement2");
 		  const mask_item3 = document.getElementById("hiddenElement3");
 		  let show_YearRpt="" , show_SeasonRpt="" , show_MonthRpt="" , tr_line="" , itemYear_stockname="" ; 
-        let width = 0 , intervalIds = [] , itemYear_arry1 = [] , itemYear_arry2 = [] , itemYear_arry3 = []  ;
+      let width = 0 , intervalIds = [] , itemYear_arry1 = [] , itemYear_arry2 = [] , itemYear_arry3 = []  ;
 		  let str_1="https://ws.api.cnyes.com/ws/api/v1/charting/history?resolution=1&symbol=TWS:", 
-			  str_2=stockId_list[5], 
+			  str_2="2449", 
 			  str_3=":STOCK&quote=1" ,
 			  ajaxURL= str_1 + str_2 + str_3 ,
 			  s01_val="0" ; 				  
@@ -21,22 +21,22 @@ const element1 = document.getElementById("myBar1");
             else 
 			{ 
 		    }
-      getDATA();
-      getWDATA();
-      element1.style.width = '0%';  
-      document.getElementById("s01").addEventListener("change", refreshTime); 
-      document.getElementById("s02").addEventListener("change", optionSel); 			  
-      });
+		  getDATA();
+          getWDATA();
+          element1.style.width = '0%';  
+          document.getElementById("s01").addEventListener("change", refreshTime); 
+          document.getElementById("s02").addEventListener("change", optionSel); 			  
+          });
 		                              
           function refreshTime() {
              switch ( $(this).val()) {
                       case "0": 
-                           width = 100;
-                           refSec = 99999 ;
-                           element1.style.width = '0%'; 
-                           break;
+                          width = 100;
+						              refSec = 99999 ;
+                       	  element1.style.width = '0%'; 
+                          break;
                       case "1": 
-                      	   refSec = 3000 ;
+                      	  refSec = 3000 ;
                            break;
                       case "2":
                            refSec = 5000 ;
@@ -60,19 +60,18 @@ const element1 = document.getElementById("myBar1");
                           refSec = 900000 ;
                            break;
                       case "9": 
-                    	      refSec = 1200000 ;
+                    	   refSec = 1200000 ;
                            break;
                       case "10": 
                    	      refSec = 1800000 ;
-                           break;                                     
+                          break;                                     
                       default:
-                            return;
+                         return;
                     } 
-             //  console.log(refSec,"aaa");
-               str_2=document.getElementById("s02").value ;
+                   str_2=document.getElementById("s02").value ;
 				   while(intervalIds.length){
                           clearInterval(intervalIds.pop());
-               }
+            }
 				   if  (refSec != 99999 ) {
 				       id = setInterval(getDATA,refSec);
 				       intervalIds.push(id); 
@@ -87,7 +86,7 @@ const element1 = document.getElementById("myBar1");
 
             }
 			
-      function optionSel() {
+          function optionSel() {
 			 s01_val=document.getElementById("s01").value ;
 			 switch ( s01_val ) {
                       case "0": 
@@ -351,139 +350,131 @@ const element1 = document.getElementById("myBar1");
                  });
                 });    
               //  Ending 3rd stock section 
-            //  4th stock section 
-            fetchUrl_str=fetchUrl_str1 + stockId_list[3] + fetchUrl_str2 ;	  
-            $.getJSON(fetchUrl_str,function(data){
-               // console.log('success');
-             $.each(data,function(key11,item11){
-                if (key11 === 'data') {
-                //  $('ul').append('<li>'+item1+'</li>');                   	
-               var itemData11 = item11; 
-               span_rpt="<span class='span_rpt'>(<button onclick='showElement1(1102);'>M</button>)</span><span class='span_rpt'>(<button onclick='showElement2(" +  stockId_list[3] + ");'>S</button>)</span>" ; 	 					
-               $.each(itemData11,function(key21,item21){
-                 if (key21  === 'quote' ) {
-                     var itemData21 = item21;
-                    // console.log(itemData21); 	
-                     $.each(itemData21,function(key31,item31){  
-                        if (key31 === '200009') {
-                            $("#span41").html(item31 + span_rpt); 	
+              //  4th stock section
+                  fetchUrl_str=fetchUrl_str1 + stockId_list[3] + fetchUrl_str2 ;	   
+                 $.getJSON(fetchUrl_str',function(data){
+                  $.each(data,function(key11,item11){
+                     if (key11 === 'data') {                	
+                    var itemData11 = item11; 
+					          span_rpt="<span class='span_rpt'>(<button onclick='showElement1(2330);'>M</button>)</span><span class='span_rpt'>(<button onclick='showElement2(" + stockId_list[3]  + ");'>S</button>)</span>" ; 	 					
+                    $.each(itemData11,function(key21,item21){
+                    	if (key21  === 'quote' ) {
+                    		  var itemData21 = item21;
+                    		  $.each(itemData21,function(key31,item31){  
+                             if (key31 === '200009') {
+                 	              $("#tsmc1").html(item31 + span_rpt); 	
+                             }
+                             if (key31 === '6') {
+                 	              $("#tsmc2").html(item31); 
+                             }
+                             if (key31 === '11') {
+                             	  if (item31> 0) 
+                             	      {
+                             	       	$("#tsmc2").addClass("risePrice"); 
+                             	       	$("#tsmc3").addClass("risePrice"); 
+                             	      } 
+                             	  else {
+                             	  	 if (item31 === 0){ 
+                             	  	 	$("#tsmc2").addClass("flatPrice"); 
+                             	        $("#tsmc3").addClass("flatPrice"); 		
+                             	  	 }
+                             	  	 else {
+                             	  	   $("#tsmc2").addClass("wi-fellPrice"); 
+                             	       $("#tsmc3").addClass("wi-fellPrice"); 	
+                             	  	 }
+                             	  }
+                             	  $("#tsmc3").html(item31); 
+                             } 
+                             if (key31 === '12') {
+                 	               $("#tsmc4").html(item31); 
+                             }
+                             if (key31 === '13') {
+                 	               $("#tsmc5").html(item31); 
+                             } 
+                        }) ;                 		
+                    	}
+                     });
+                       if ($("#tsmc4").html() >= $("#tsmc2").html() - $("#tsmc3").html())
+                          {
+                       	    $("#tsmc4").addClass("highestPrice");
+                          }  
+                       else {
+                       	  $("#tsmc4").addClass("lowestPrice");
+                          }
+                       if ($("#tsmc5").html() >= $("#tsmc2").html() - $("#tsmc3").html())
+                          {
+                       	  $("#tsmc5").addClass("highestPrice");
+                          }  
+                       else {
+                       	  $("#tsmc5").addClass("lowestPrice");
+                       }                  
+                  }
+                 });
+                });    
+              //  Ending 4th stock section
+              //  5th stock section
+              fetchUrl_str=fetchUrl_str1 + stockId_list[4] + fetchUrl_str2 ;	   
+              $.getJSON(fetchUrl_str',function(data){
+                $.each(data,function(key11,item11){
+                  if (key11 === 'data') {                	
+                  var itemData11 = item11; 
+                  span_rpt="<span class='span_rpt'>(<button onclick='showElement1(2330);'>M</button>)</span><span class='span_rpt'>(<button onclick='showElement2(" +  stockId_list[4] +");'>S</button>)</span>" ; 	 					
+                  $.each(itemData11,function(key21,item21){
+                    if (key21  === 'quote' ) {
+                        var itemData21 = item21;
+                        $.each(itemData21,function(key31,item31){  
+                          if (key31 === '200009') {
+                              $("#tsmc1").html(item31 + span_rpt); 	
+                          }
+                          if (key31 === '6') {
+                              $("#tsmc2").html(item31); 
+                          }
+                          if (key31 === '11') {
+                              if (item31> 0) 
+                                  {
+                                      $("#tsmc2").addClass("risePrice"); 
+                                      $("#tsmc3").addClass("risePrice"); 
+                                  } 
+                              else {
+                                  if (item31 === 0){ 
+                                    $("#tsmc2").addClass("flatPrice"); 
+                                    $("#tsmc3").addClass("flatPrice"); 		
+                                  }
+                                  else {
+                                    $("#tsmc2").addClass("wi-fellPrice"); 
+                                    $("#tsmc3").addClass("wi-fellPrice"); 	
+                                  }
+                              }
+                              $("#tsmc3").html(item31); 
+                          } 
+                          if (key31 === '12') {
+                                $("#tsmc4").html(item31); 
+                          }
+                          if (key31 === '13') {
+                                $("#tsmc5").html(item31); 
+                          } 
+                      }) ;                 		
+                    }
+                  });
+                    if ($("#tsmc4").html() >= $("#tsmc2").html() - $("#tsmc3").html())
+                        {
+                          $("#tsmc4").addClass("highestPrice");
+                        }  
+                    else {
+                        $("#tsmc4").addClass("lowestPrice");
                         }
-                        if (key31 === '6') {
-                            $("#span42").html(item31); 
-                        }
-                        if (key31 === '11') {
-                            if (item31> 0) 
-                                {
-                                   $("#span42").addClass("risePrice"); 
-                                   $("#span43").addClass("risePrice"); 
-                                 // $("#span13").html("???" +???item3); 	
-                                } 
-                            else {
-                               if (item31 === 0){ 
-                                  $("#span42").addClass("flatPrice"); 
-                                  $("#span43").addClass("flatPrice"); 		
-                               }
-                               else {
-                                  $("#span42").addClass("fellPrice"); 
-                                  $("#span43").addClass("fellPrice"); 	
-                               }
-                            }
-                            $("#span43").html(item31); 
-                        } 
-                        if (key31 === '12') {
-                             $("#span44").html(item31); 
-                        }
-                        if (key31 === '13') {
-                             $("#span45").html(item31); 
-                        } 
-                   }) ;                 		
-                 }
-                });
-                  if ($("#span44").html() >= $("#span42").html() - $("#span43").html())
-                     {
-                        $("#span44").addClass("highestPrice");
-                     }  
-                  else {
-                      $("#span44").addClass("lowestPrice");
-                     }
-                  if ($("#span45").html() >= $("#span42").html() - $("#span43").html())
-                     {
-                      $("#span45").addClass("highestPrice");
-                     }  
-                  else {
-                      $("#span45").addClass("lowestPrice");
-                  }                  
-             }
-            });
-           });    
-          //  Ending 4th stock section 
-          //  5th stock section 
-            fetchUrl_str=fetchUrl_str1 + stockId_list[4] + fetchUrl_str2 ;	  
-            $.getJSON(fetchUrl_str,function(data){
-               // console.log('success');
-             $.each(data,function(key11,item11){
-                if (key11 === 'data') {
-                //  $('ul').append('<li>'+item1+'</li>');                   	
-               var itemData11 = item11; 
-               span_rpt="<span class='span_rpt'>(<button onclick='showElement1(1102);'>M</button>)</span><span class='span_rpt'>(<button onclick='showElement2(" +  stockId_list[4] + ");'>S</button>)</span>" ; 	 					
-               $.each(itemData11,function(key21,item21){
-                 if (key21  === 'quote' ) {
-                     var itemData21 = item21;
-                    // console.log(itemData21); 	
-                     $.each(itemData21,function(key31,item31){  
-                        if (key31 === '200009') {
-                            $("#span51").html(item31 + span_rpt); 	
-                        }
-                        if (key31 === '6') {
-                            $("#span52").html(item31); 
-                        }
-                        if (key31 === '11') {
-                            if (item31> 0) 
-                                {
-                                   $("#span52").addClass("risePrice"); 
-                                   $("#span53").addClass("risePrice"); 
-                                 // $("#span13").html("???" +???item3); 	
-                                } 
-                            else {
-                               if (item31 === 0){ 
-                                  $("#span52").addClass("flatPrice"); 
-                                  $("#span53").addClass("flatPrice"); 		
-                               }
-                               else {
-                                  $("#span52").addClass("fellPrice"); 
-                                  $("#span53").addClass("fellPrice"); 	
-                               }
-                            }
-                            $("#span53").html(item31); 
-                        } 
-                        if (key31 === '12') {
-                             $("#span54").html(item31); 
-                        }
-                        if (key31 === '13') {
-                             $("#span55").html(item31); 
-                        } 
-                   }) ;                 		
-                 }
-                });
-                  if ($("#span54").html() >= $("#span52").html() - $("#span53").html())
-                     {
-                        $("#span54").addClass("highestPrice");
-                     }  
-                  else {
-                      $("#span54").addClass("lowestPrice");
-                     }
-                  if ($("#span55").html() >= $("#span52").html() - $("#span53").html())
-                     {
-                      $("#span55").addClass("highestPrice");
-                     }  
-                  else {
-                      $("#span55").addClass("lowestPrice");
-                  }                  
-             }
-            });
-           });    
-         //  Ending 5th stock section                                                    
-          //  Option selected index  section
+                    if ($("#tsmc5").html() >= $("#tsmc2").html() - $("#tsmc3").html())
+                        {
+                        $("#tsmc5").addClass("highestPrice");
+                        }  
+                    else {
+                        $("#tsmc5").addClass("lowestPrice");
+                    }                  
+                }
+              });
+              });    
+            //  Ending 5th stock section                                                    
+            //  Option selected index  section
             if (str_2 !="0") {
               ajaxURL=str_1 + str_2 + str_3 ;	 
          $.getJSON(ajaxURL,function(data){
@@ -549,135 +540,8 @@ const element1 = document.getElementById("myBar1");
          });
         });  					
         }			
-      //  Ending Option selected index section 
-      //  Weighed index  section   
-        $.getJSON('https://ws.api.cnyes.com/ws/api/v1/charting/history?symbol=TWS:TSE01:INDEX&resolution=D&quote=1&from=NaN&to=NaN',function(data){
-          // console.log('success');
-        $.each(data,function(key11,item11){
-            if (key11 === 'data') {
-            //  $('ul').append('<li>'+item1+'</li>');                   	
-          var itemData11 = item11; 	          
-          $.each(itemData11,function(key21,item21){
-            if (key21  === 'c' ){
-                $("#wi-c").html(item21);                     	                   	 	
-            }           
-            if (key21  === 'quote' ) {
-                var itemData21 = item21;
-                // console.log(itemData21); 	
-                $.each(itemData21,function(key31,item31){  
-                    if (key31 === '11') {
-                        if (item31> 0) 
-                            {
-                              $("#wi-d").addClass("wi-risePrice"); 
-                            } 
-                        else {
-                          if (item31 === 0){ 
-                            $("#wi-d").addClass("wi-flatPrice");                             	  	 		
-                          }
-                          else {
-
-                            $("#wi-d").addClass("wi-fellPrice"); 	
-                          }
-                        }
-                        $("#wi-d").html(item31); 
-                    } 
-              }) ;                 		
-            }
-            });
-          //  console.log(item1[0]);
-              if ($("#span24").html() >= $("#span22").html() - $("#span23").html())
-                {
-                    $("#span24").addClass("highestPrice");
-                }  
-              else {
-                  $("#span24").addClass("lowestPrice");
-                }
-              if ($("#span25").html() >= $("#span22").html() - $("#span23").html())
-                {
-                  $("#span25").addClass("highestPrice");
-                }  
-              else {
-                  $("#span25").addClass("lowestPrice");
-              }                  
-        }
-        });
-      });    
-    //  Ending Weighed index section    
+      //  Ending Option selected index section  
        };  
-
-    function getWDATA() {            	
-        $.getJSON('https://ws.api.cnyes.com/ws/api/v3/universal/quote?type=IDXMAJOR&column=B&page=2&limit=10',function(data){
-            // console.log('success');
-          $.each(data,function(key1,item1){
-             if (key1 === 'data') {
-             //  $('ul').append('<li>'+item1+'</li>');
-            var itemData = item1; 	          
-            $.each(itemData,function(key2,item2){
-              if (key2  === 'items' ) {
-                  var itemData2 = item2;
-                  var itemDataTemp ;
-                //  Dowjon - starting
-                  $.each(itemData2[3],function(key3,item3){
-                    if (key3 === '6') {
-                      itemDataTemp = item3 ;
-                       }
-                if (key3 === '200009') {
-                 //   $("#dowjon").html(item3 + '<BR>' + itemDataTemp );
-                     }   
-                     if (key3 === '11') {
-                         $("#dowjon-p").html(item3);                             	
-                         if (item3> 0) 
-                             {
-                                $("#dowjon-p").addClass("risePrice"); 
-                                $("#dowjon-p").addClass("risePrice"); 
-                             } 
-                         else {
-                            if (item3 === 0){ 
-                               $("#dowjon-p").addClass("flatPrice"); 
-                              $("#dowjon-p").addClass("flatPrice"); 		
-                            }
-                            else {
-                               $("#dowjon-p").addClass("fellPrice"); 
-                              $("#dowjon-p").addClass("fellPrice"); 	
-                            }
-                         }
-                     } 
-                }) ; 
-                //  Dowjon - Ending  
-                //  Nasdaq - starting
-                  $.each(itemData2[5],function(key3,item3){
-                    if (key3 === '6') {
-                         itemDataTemp = item3 ;
-                       }
-                    if (key3 === '200009') {
-                    //  $("#nasdaq").html(item3 + '<BR>' + itemDataTemp );
-                     }   
-                    if (key3 === '11') {
-                        $("#nasdaq-p").html(item3);                              	
-                         if (item3> 0) 
-                             {
-                                $("#nasdaq-p").addClass("risePrice"); 
-                                $("#nasdaq-p").addClass("risePrice"); 
-                             } 
-                         else {
-                            if (item3 === 0){ 
-                               $("#nasdaq-p").addClass("flatPrice"); 
-                              $("#nasdaq-p").addClass("flatPrice"); 		
-                            }
-                            else {
-                               $("#nasdaq-p").addClass("fellPrice"); 
-                              $("#nasdaq-p").addClass("fellPrice"); 	
-                            }
-                         }
-                     } 
-                }) ; 
-                //  Nasdaq - Ending               		              		
-              }
-             });               
-          }
-         });
-        }); 
-    };      
 
   // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Begin
    function step11(stockNo) {
